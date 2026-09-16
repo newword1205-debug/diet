@@ -37,6 +37,20 @@
         canvas{
             width:100% !important;
         }
+        .catBtn{
+            padding:6px 12px;
+            margin:4px 6px 8px 0;
+            border:1px solid #ccc;
+            border-radius:6px;
+            background:#fff;
+            cursor:pointer;
+            font-size:14px;
+        }
+        .catBtn.active{
+            background:#4CAF50;
+            color:#fff;
+            border-color:#4CAF50;
+        }
     </style>
 </head>
 <body>
@@ -51,112 +65,133 @@
     <div class="card">
         <h3>🍽 添加饮食</h3>
         <div class="row">
-            <select id="foodSelect">
-                <option value="">-- 选择食物 --</option>
-                <optgroup label="▸ 单独食材">
-                    <option value="巴沙鱼">巴沙鱼</option>
-                    <option value="北豆腐">北豆腐</option>
-                    <option value="菠菜">菠菜</option>
-                    <option value="草莓">草莓</option>
-                    <option value="纯牛奶">纯牛奶</option>
-                    <option value="冬瓜">冬瓜</option>
-                    <option value="橄榄油">橄榄油</option>
-                    <option value="广式香肠">广式香肠</option>
-                    <option value="黑咖啡(无糖)">黑咖啡(无糖)</option>
-                    <option value="黑巧克力70%+">黑巧克力70%+</option>
-                    <option value="黑芝麻">黑芝麻</option>
-                    <option value="红辣椒">红辣椒</option>
-                    <option value="黄瓜">黄瓜</option>
-                    <option value="鸡蛋">鸡蛋</option>
-                    <option value="鸡胸肉">鸡胸肉</option>
-                    <option value="菌菇(混合)">菌菇(混合)</option>
-                    <option value="卷心菜">卷心菜</option>
-                    <option value="奇亚籽">奇亚籽</option>
-                    <option value="芦笋">芦笋</option>
-                    <option value="苹果">苹果</option>
-                    <option value="花生油">花生油</option>
-                    <option value="菜籽油">菜籽油</option>
-                    <option value="荞麦面(干)">荞麦面(干)</option>
-                    <option value="猪肉(瘦肉片)">猪肉(瘦肉片)</option>
-                    <option value="红薯">红薯</option>
-                    <option value="虾仁">虾仁</option>
-                    <option value="三文鱼">三文鱼</option>
-                    <option value="生抽">生抽</option>
-                    <option value="瘦牛肉">瘦牛肉</option>
-                    <option value="无糖希腊酸奶">无糖希腊酸奶</option>
-                    <option value="无糖豆浆">无糖豆浆</option>
-                    <option value="无糖绿茶">无糖绿茶</option>
-                    <option value="西兰花">西兰花</option>
-                    <option value="柚子">柚子</option>
-                    <option value="香菇">香菇</option>
-                    <option value="燕麦">燕麦</option>
-                    <option value="洋葱">洋葱</option>
-                    <option value="油麦菜">油麦菜</option>
-                    <option value="玉米(鲜)">玉米(鲜)</option>
-                    <option value="蒸山药">蒸山药</option>
-                    <option value="蒸芋头">蒸芋头</option>
-                    <option value="猪里脊">猪里脊</option>
-                    <option value="糙米">糙米</option>
-                    <option value="秋葵">秋葵</option>
-                    <option value="猕猴桃">猕猴桃</option>
-                    <option value="全麦面包">全麦面包</option>
-                    <option value="全麦馒头">全麦馒头</option>
-                    <option value="黄油">黄油</option>
-                    <option value="蓝莓">蓝莓</option>
-                    <option value="荷兰豆">荷兰豆</option>
-                    <option value="核桃">核桃</option>
-                    <option value="小米粥">小米粥</option>
-                    <option value="杏仁">杏仁</option>
-                    <option value="鸭胸肉">鸭胸肉</option>
-                    <option value="番茄">番茄</option>
-                    <option value="芹菜">芹菜</option>
-                    <option value="生菜">生菜</option>
-                </optgroup>
-                <optgroup label="▸ 家常炒菜">
-                    <option value="荷兰豆炒香肠">荷兰豆炒香肠</option>
-                    <option value="红辣椒炒肉">红辣椒炒肉</option>
-                    <option value="青椒炒鸡蛋">青椒炒鸡蛋</option>
-                    <option value="香菇炒青菜">香菇炒青菜</option>
-                    <option value="番茄炒蛋">番茄炒蛋</option>
-                    <option value="手撕包菜">手撕包菜</option>
-                    <option value="清炒油麦菜">清炒油麦菜</option>
-                    <option value="清炒西兰花">清炒西兰花</option>
-                    <option value="木耳炒瘦肉">木耳炒瘦肉</option>
-                    <option value="芹菜炒肉丝">芹菜炒肉丝</option>
-                    <option value="冬瓜炒虾仁">冬瓜炒虾仁</option>
-                    <option value="芦笋炒鸡胸">芦笋炒鸡胸</option>
-                    <option value="白灼菜心">白灼菜心</option>
-                    <option value="水煮虾">水煮虾</option>
-                    <option value="番茄炖牛肉">番茄炖牛肉</option>
-                    <option value="凉拌黄瓜">凉拌黄瓜</option>
-                </optgroup>
-                <optgroup label="▸ 零食饮料">
-                    <option value="AD钙奶">AD钙奶</option>
-                    <option value="爆米花">爆米花</option>
-                    <option value="冰淇淋">冰淇淋</option>
-                    <option value="苏打饼干">苏打饼干</option>
-                    <option value="蛋挞">蛋挞</option>
-                    <option value="方便面">方便面</option>
-                    <option value="瓜子">瓜子</option>
-                    <option value="果冻">果冻</option>
-                    <option value="果汁(橙汁)">果汁(橙汁)</option>
-                    <option value="花生">花生</option>
-                    <option value="火腿肠">火腿肠</option>
-                    <option value="可乐">可乐</option>
-                    <option value="辣条">辣条</option>
-                    <option value="奶茶(含糖)">奶茶(含糖)</option>
-                    <option value="牛奶巧克力">牛奶巧克力</option>
-                    <option value="奶油蛋糕">奶油蛋糕</option>
-                    <option value="牛肉干">牛肉干</option>
-                    <option value="曲奇饼干">曲奇饼干</option>
-                    <option value="山楂片">山楂片</option>
-                    <option value="薯片(原味)">薯片(原味)</option>
-                    <option value="糖果">糖果</option>
-                    <option value="雪糕">雪糕</option>
-                    <option value="猪肉脯">猪肉脯</option>
-                </optgroup>
+            <div>
+                <button type="button" class="catBtn active" onclick="switchCat('staple',this)">🍚 主食</button>
+                <button type="button" class="catBtn" onclick="switchCat('food',this)">🥦 单独食材</button>
+                <button type="button" class="catBtn" onclick="switchCat('dish',this)">🍳 家常炒菜</button>
+                <button type="button" class="catBtn" onclick="switchCat('snack',this)">🍫 零食饮料</button>
+            </div>
+            <select id="foodSelectStaple" class="foodSelect">
+                <option value="">-- 选择主食 --</option>
+                <option value="米饭(熟)">米饭(熟)</option>
+                <option value="糙米饭">糙米饭</option>
+                <option value="面条(煮)">面条(煮)</option>
+                <option value="意大利面(煮)">意大利面(煮)</option>
+                <option value="馒头">馒头</option>
+                <option value="包子(猪肉馅)">包子(猪肉馅)</option>
+                <option value="饺子(猪肉白菜)">饺子(猪肉白菜)</option>
+                <option value="白粥">白粥</option>
+                <option value="米粉(煮)">米粉(煮)</option>
+                <option value="燕麦">燕麦</option>
+                <option value="糙米">糙米</option>
+                <option value="全麦面包">全麦面包</option>
+                <option value="全麦馒头">全麦馒头</option>
+                <option value="红薯">红薯</option>
+                <option value="紫薯">紫薯</option>
+                <option value="土豆(煮)">土豆(煮)</option>
+                <option value="南瓜">南瓜</option>
+                <option value="玉米(鲜)">玉米(鲜)</option>
+                <option value="蒸山药">蒸山药</option>
+                <option value="蒸芋头">蒸芋头</option>
+                <option value="小米粥">小米粥</option>
+                <option value="荞麦面(干)">荞麦面(干)</option>
+                <option value="藜麦(熟)">藜麦(熟)</option>
             </select>
-            <input id="foodName" placeholder="输入食物+重量，例：薯片60g / AD钙奶220ml">
+            <select id="foodSelectFood" class="foodSelect" style="display:none">
+                <option value="">-- 选择单独食材 --</option>
+                <option value="鸡蛋">鸡蛋</option>
+                <option value="鸡胸肉">鸡胸肉</option>
+                <option value="三文鱼">三文鱼</option>
+                <option value="瘦牛肉">瘦牛肉</option>
+                <option value="虾仁">虾仁</option>
+                <option value="北豆腐">北豆腐</option>
+                <option value="嫩豆腐">嫩豆腐</option>
+                <option value="猪里脊">猪里脊</option>
+                <option value="鸭胸肉">鸭胸肉</option>
+                <option value="巴沙鱼">巴沙鱼</option>
+                <option value="无糖希腊酸奶">无糖希腊酸奶</option>
+                <option value="广式香肠">广式香肠</option>
+                <option value="猪肉(瘦肉片)">猪肉(瘦肉片)</option>
+                <option value="西兰花">西兰花</option>
+                <option value="黄瓜">黄瓜</option>
+                <option value="番茄">番茄</option>
+                <option value="芦笋">芦笋</option>
+                <option value="生菜">生菜</option>
+                <option value="菠菜">菠菜</option>
+                <option value="油麦菜">油麦菜</option>
+                <option value="冬瓜">冬瓜</option>
+                <option value="芹菜">芹菜</option>
+                <option value="菌菇(混合)">菌菇(混合)</option>
+                <option value="卷心菜">卷心菜</option>
+                <option value="秋葵">秋葵</option>
+                <option value="荷兰豆">荷兰豆</option>
+                <option value="红辣椒">红辣椒</option>
+                <option value="橄榄油">橄榄油</option>
+                <option value="花生油">花生油</option>
+                <option value="菜籽油">菜籽油</option>
+                <option value="黄油">黄油</option>
+                <option value="杏仁">杏仁</option>
+                <option value="核桃">核桃</option>
+                <option value="黑芝麻">黑芝麻</option>
+                <option value="生抽">生抽</option>
+                <option value="奇亚籽">奇亚籽</option>
+                <option value="纯牛奶">纯牛奶</option>
+                <option value="无糖豆浆">无糖豆浆</option>
+                <option value="黑咖啡(无糖)">黑咖啡(无糖)</option>
+                <option value="无糖绿茶">无糖绿茶</option>
+                <option value="蓝莓">蓝莓</option>
+                <option value="苹果">苹果</option>
+                <option value="草莓">草莓</option>
+                <option value="柚子">柚子</option>
+                <option value="猕猴桃">猕猴桃</option>
+            </select>
+            <select id="foodSelectDish" class="foodSelect" style="display:none">
+                <option value="">-- 选择家常炒菜 --</option>
+                <option value="荷兰豆炒香肠">荷兰豆炒香肠</option>
+                <option value="红辣椒炒肉">红辣椒炒肉</option>
+                <option value="青椒炒鸡蛋">青椒炒鸡蛋</option>
+                <option value="香菇炒青菜">香菇炒青菜</option>
+                <option value="番茄炒蛋">番茄炒蛋</option>
+                <option value="手撕包菜">手撕包菜</option>
+                <option value="清炒油麦菜">清炒油麦菜</option>
+                <option value="清炒西兰花">清炒西兰花</option>
+                <option value="木耳炒瘦肉">木耳炒瘦肉</option>
+                <option value="芹菜炒肉丝">芹菜炒肉丝</option>
+                <option value="冬瓜炒虾仁">冬瓜炒虾仁</option>
+                <option value="芦笋炒鸡胸">芦笋炒鸡胸</option>
+                <option value="白灼菜心">白灼菜心</option>
+                <option value="水煮虾">水煮虾</option>
+                <option value="番茄炖牛肉">番茄炖牛肉</option>
+                <option value="凉拌黄瓜">凉拌黄瓜</option>
+            </select>
+            <select id="foodSelectSnack" class="foodSelect" style="display:none">
+                <option value="">-- 选择零食饮料 --</option>
+                <option value="AD钙奶">AD钙奶</option>
+                <option value="爆米花">爆米花</option>
+                <option value="冰淇淋">冰淇淋</option>
+                <option value="苏打饼干">苏打饼干</option>
+                <option value="蛋挞">蛋挞</option>
+                <option value="方便面">方便面</option>
+                <option value="瓜子">瓜子</option>
+                <option value="果冻">果冻</option>
+                <option value="果汁(橙汁)">果汁(橙汁)</option>
+                <option value="花生">花生</option>
+                <option value="火腿肠">火腿肠</option>
+                <option value="可乐">可乐</option>
+                <option value="辣条">辣条</option>
+                <option value="奶茶(含糖)">奶茶(含糖)</option>
+                <option value="牛奶巧克力">牛奶巧克力</option>
+                <option value="奶油蛋糕">奶油蛋糕</option>
+                <option value="牛肉干">牛肉干</option>
+                <option value="曲奇饼干">曲奇饼干</option>
+                <option value="山楂片">山楂片</option>
+                <option value="薯片(原味)">薯片(原味)</option>
+                <option value="糖果">糖果</option>
+                <option value="雪糕">雪糕</option>
+                <option value="猪肉脯">猪肉脯</option>
+                <option value="黑巧克力70%+">黑巧克力70%+</option>
+            </select>
+            <input id="foodName" placeholder="输入食物+重量，例：米饭150g">
         </div>
         <div class="row">
             <input id="foodCal" placeholder="热量kcal">
@@ -182,8 +217,8 @@
     <div class="card">
         <h3>⚖️ 体重 & BMI</h3>
         <div class="row">
-            <input id="heightInput" placeholder="身高(cm)" type="number">
-            <input id="weightInput" placeholder="体重(kg)" type="number">
+            <input id="heightInput" placeholder="身高(cm)，例：165" type="number">
+            <input id="weightInput" placeholder="体重(kg)，例：55" type="number">
             <button onclick="calcBMI()">计算BMI并保存</button>
         </div>
         <div>今日体重：<span id="showWeight">--</span> kg | BMI：<span id="showBMI">--</span></div>
@@ -249,20 +284,33 @@
     </div>
 
 <script>
-// 食物营养库【每100g参考值，新增零食饮料分类】
+// 食物营养库【每100g参考值】
 const foodDB = {
-    //==== 单独食材 ====
+    //==== 主食 ====
+    "米饭(熟)": {cal:116, carb:25.9, protein:2.6, fat:0.3},
+    "糙米饭": {cal:112, carb:24, protein:2.6, fat:0.9},
+    "面条(煮)": {cal:110, carb:24.3, protein:3.9, fat:0.4},
+    "意大利面(煮)": {cal:131, carb:25, protein:5, fat:1.1},
+    "馒头": {cal:223, carb:47, protein:7, fat:1.1},
+    "包子(猪肉馅)": {cal:227, carb:27, protein:8, fat:10},
+    "饺子(猪肉白菜)": {cal:240, carb:28, protein:9, fat:10},
+    "白粥": {cal:46, carb:9.9, protein:1.1, fat:0.3},
+    "米粉(煮)": {cal:97, carb:21, protein:1.5, fat:0.2},
     "燕麦": {cal:389, carb:66.9, protein:13.1, fat:6.9},
     "糙米": {cal:345, carb:77, protein:7.4, fat:2.8},
-    "红薯": {cal:86, carb:20.1, protein:1.6, fat:0.1},
-    "白米饭": {cal:116, carb:25.9, protein:2.6, fat:0.3},
     "全麦面包": {cal:250, carb:42, protein:10, fat:4},
+    "全麦馒头": {cal:223, carb:44, protein:7, fat:1.1},
+    "红薯": {cal:86, carb:20.1, protein:1.6, fat:0.1},
+    "紫薯": {cal:106, carb:25.2, protein:1.5, fat:0.2},
+    "土豆(煮)": {cal:81, carb:18.9, protein:2.2, fat:0.1},
+    "南瓜": {cal:23, carb:5.3, protein:0.7, fat:0.1},
     "玉米(鲜)": {cal:106, carb:22.8, protein:4, fat:1.2},
-    "荞麦面(干)": {cal:340, carb:70, protein:12, fat:2.5},
     "蒸山药": {cal:57, carb:12.4, protein:1.9, fat:0.2},
     "蒸芋头": {cal:77, carb:18.1, protein:2.2, fat:0.2},
     "小米粥": {cal:46, carb:9.9, protein:1.4, fat:0.7},
-    "全麦馒头": {cal:223, carb:44, protein:7, fat:1.1},
+    "荞麦面(干)": {cal:340, carb:70, protein:12, fat:2.5},
+    "藜麦(熟)": {cal:120, carb:21, protein:4.4, fat:1.9},
+    //==== 单独食材-肉蛋 ====
     "鸡蛋": {cal:143, carb:0.7, protein:12.6, fat:9.9},
     "鸡胸肉": {cal:118, carb:0, protein:23, fat:2.3},
     "三文鱼": {cal:139, carb:0, protein:20, fat:6.3},
@@ -276,6 +324,7 @@ const foodDB = {
     "无糖希腊酸奶": {cal:70, carb:3, protein:10, fat:1.5},
     "广式香肠": {cal:410, carb:15, protein:20, fat:32},
     "猪肉(瘦肉片)": {cal:143, carb:0, protein:20, fat:6.2},
+    //==== 单独食材-蔬菜 ====
     "西兰花": {cal:34, carb:4.1, protein:2.8, fat:0.4},
     "黄瓜": {cal:16, carb:2.9, protein:0.7, fat:0.2},
     "番茄": {cal:18, carb:3.9, protein:0.9, fat:0.2},
@@ -290,6 +339,7 @@ const foodDB = {
     "秋葵": {cal:37, carb:7.6, protein:2.0, fat:0.2},
     "荷兰豆": {cal:27, carb:4.9, protein:2.5, fat:0.3},
     "红辣椒": {cal:30, carb:6, protein:1.4, fat:0.2},
+    //==== 单独食材-油脂调味 ====
     "橄榄油": {cal:898, carb:0, protein:0, fat:99.8},
     "花生油": {cal:899, carb:0, protein:0, fat:99.9},
     "菜籽油": {cal:899, carb:0, protein:0, fat:99.9},
@@ -299,6 +349,7 @@ const foodDB = {
     "黑芝麻": {cal:573, carb:24, protein:19.1, fat:49.7},
     "生抽": {cal:20, carb:3, protein:5, fat:0.1},
     "奇亚籽": {cal:486, carb:42, protein:16.5, fat:30.7},
+    //==== 单独食材-水果饮品 ====
     "纯牛奶": {cal:65, carb:4.8, protein:3.2, fat:3.8},
     "无糖豆浆": {cal:40, carb:1.5, protein:3, fat:2.1},
     "黑咖啡(无糖)": {cal:1, carb:0, protein:0, fat:0},
@@ -348,7 +399,8 @@ const foodDB = {
     "薯片(原味)": {cal:536, carb:53, protein:6.6, fat:34},
     "糖果": {cal:400, carb:99, protein:0, fat:0},
     "雪糕": {cal:200, carb:26, protein:3, fat:9},
-    "猪肉脯": {cal:350, carb:25, protein:30, fat:15}
+    "猪肉脯": {cal:350, carb:25, protein:30, fat:15},
+    "黑巧克力70%+": {cal:604, carb:28, protein:8, fat:45}
 };
 
 // 运动消耗：每分钟消耗热量（参考值，适合普通成年女性）
@@ -381,6 +433,16 @@ function initDate(){
     }
 }
 
+// 切换食物分类
+function switchCat(cat, btn){
+    const map = {staple:'foodSelectStaple', food:'foodSelectFood', dish:'foodSelectDish', snack:'foodSelectSnack'};
+    Object.keys(map).forEach(k=>{
+        document.getElementById(map[k]).style.display = (k===cat)?'':'none';
+    });
+    document.querySelectorAll('.catBtn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+}
+
 // 解析食物名称+任意重量（支持小数，支持g和ml单位）
 function parseFoodText(text){
     const match = text.match(/^(.+?)(\d+(?:\.\d+)?)(g|ml)$/i);
@@ -407,13 +469,16 @@ foodInput.addEventListener('input', function(){
     }
 })
 
-// 下拉选择食物，自动填充100g并触发计算
-document.getElementById('foodSelect').onchange = function(){
-    const selName = this.value;
-    if(!selName) return;
-    document.getElementById('foodName').value = selName + "100g";
-    foodInput.dispatchEvent(new Event('input'));
-}
+// 四个分类下拉选择食物，统一填充并触发计算
+['staple','food','dish','snack'].forEach(cat=>{
+    const id = 'foodSelect' + cat.charAt(0).toUpperCase() + cat.slice(1);
+    document.getElementById(id).onchange = function(){
+        const selName = this.value;
+        if(!selName) return;
+        document.getElementById('foodName').value = selName + "100g";
+        foodInput.dispatchEvent(new Event('input'));
+    }
+});
 
 // 计算运动卡路里
 function calcSportCal(){
@@ -424,17 +489,23 @@ function calcSportCal(){
     document.getElementById('sportCal').value = cal.toFixed(1);
 }
 
-// BMI计算
+// BMI计算（修复：自动去掉单位，带明确提示）
 function calcBMI(){
-    const heightCm = Number(document.getElementById('heightInput').value);
-    const weightKg = Number(document.getElementById('weightInput').value);
-    if(isNaN(heightCm) || heightCm <=0 || isNaN(weightKg) || weightKg <=0) return;
+    const hRaw = document.getElementById('heightInput').value;
+    const wRaw = document.getElementById('weightInput').value;
+    const heightCm = parseFloat(String(hRaw).replace(/[^\d.]/g,''));
+    const weightKg = parseFloat(String(wRaw).replace(/[^\d.]/g,''));
+    if(isNaN(heightCm) || heightCm <=0 || isNaN(weightKg) || weightKg <=0){
+        alert('请先填写有效的身高和体重\n身高单位：cm（如 165）\n体重单位：kg（如 55）');
+        return;
+    }
     const heightM = heightCm / 100;
     const bmi = (weightKg / (heightM * heightM)).toFixed(2);
     const dayData = getCurrentDayData();
     dayData.weight = weightKg;
     dayData.bmi = bmi;
     render();
+    alert('✅ 已保存！\n今日体重：' + weightKg + ' kg\nBMI = ' + bmi);
 }
 
 function getCurrentDayData(){
@@ -455,7 +526,10 @@ function getCurrentDayData(){
 function addBloodSugar(){
     const val = Number(document.getElementById('bloodSugarVal').value);
     const type = document.getElementById('bloodSugarType').value;
-    if(isNaN(val) || val <=0) return;
+    if(isNaN(val) || val <=0){
+        alert('请输入血糖值，例如 5.6');
+        return;
+    }
     const dayData = getCurrentDayData();
     dayData.bloodSugarList.push({val,type});
     document.getElementById('bloodSugarVal').value = '';
@@ -493,9 +567,7 @@ function renderChart(){
 
     days.forEach(day=>{
         const d = allData[day];
-        //体重
         weightData.push(d?.weight || null);
-        //平均空腹血糖
         let avgBs = null;
         if(d && d.bloodSugarList && d.bloodSugarList.length>0){
             const fasting = d.bloodSugarList.filter(x=>x.type==="空腹");
@@ -505,7 +577,6 @@ function renderChart(){
             }
         }
         bsData.push(avgBs);
-        //碳水、热量
         let dayCarb=0,dayCal=0;
         if(d && d.foodList){
             d.foodList.forEach(f=>{
@@ -566,7 +637,6 @@ function render(){
     document.getElementById('sportTotal').innerText = dayData.sportSum.toFixed(1);
     document.getElementById('netCal').innerText = (calSum - dayData.sportSum).toFixed(1);
 
-    // 饮水渲染
     let waterHtml = '';
     let waterTotal = 0;
     dayData.waterList.forEach((ml, idx)=>{
@@ -577,14 +647,12 @@ function render(){
     document.getElementById('totalWater').innerText = waterTotal;
     document.getElementById('statWater').innerText = waterTotal;
 
-    //血糖渲染
     let bsHtml = '';
     dayData.bloodSugarList.forEach((bs,idx)=>{
         bsHtml += `<div class="item-line">${bs.type}：${bs.val} mmol/L <button onclick="delBloodSugar(${idx})">删除</button></div>`
     })
     document.getElementById('bsList').innerHTML = bsHtml;
 
-    //体重BMI渲染
     if(dayData.weight){
         document.getElementById('showWeight').innerText = dayData.weight;
         document.getElementById('showBMI').innerText = dayData.bmi;
@@ -596,10 +664,14 @@ function render(){
     renderChart();
 }
 
-// 饮水添加&删除
+// 饮水添加（修复：支持 250、250ml、250毫升）
 function addWater(){
-    const ml = Number(document.getElementById('waterInput').value);
-    if(isNaN(ml) || ml <=0) return;
+    const wRaw = document.getElementById('waterInput').value;
+    const ml = parseFloat(String(wRaw).replace(/[^\d.]/g,''));
+    if(isNaN(ml) || ml <=0){
+        alert('请输入饮水量，例如：250 或 250ml');
+        return;
+    }
     const dayData = getCurrentDayData();
     dayData.waterList.push(ml);
     document.getElementById('waterInput').value = '';
@@ -617,7 +689,10 @@ function addFood(){
     const carb = Number(document.getElementById('foodCarb').value);
     const protein = Number(document.getElementById('foodProtein').value);
     const fat = Number(document.getElementById('foodFat').value);
-    if(!name || isNaN(cal))return;
+    if(!name || isNaN(cal)){
+        alert('请先选择或输入食物，再点添加');
+        return;
+    }
     const dayData = getCurrentDayData();
     dayData.foodList.push({name,cal,carb,protein,fat});
     document.getElementById('foodName').value='';
@@ -625,14 +700,17 @@ function addFood(){
     document.getElementById('foodCarb').value='';
     document.getElementById('foodProtein').value='';
     document.getElementById('foodFat').value='';
-    document.getElementById('foodSelect').value='';
+    document.querySelectorAll('.foodSelect').forEach(s=>s.value='');
     render();
 }
 
 function addSport(){
     const name = document.getElementById('sportSelect').value;
     const cal = Number(document.getElementById('sportCal').value);
-    if(!name || isNaN(cal))return;
+    if(!name || isNaN(cal)){
+        alert('请选择运动项目并计算/填写消耗热量');
+        return;
+    }
     const dayData = getCurrentDayData();
     dayData.sportSum += cal;
     document.getElementById('sportSelect').value='';
