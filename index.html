@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>IR饮食运动热量记录</title>
+    <style>
+        body{max-width:600px;margin:20px auto;padding:0 15px;font-family:system-ui;}
+        .box{border:1px #ccc solid;padding:15px;border-radius:10px;margin:10px 0;}
+        button{padding:6px 12px;cursor:pointer;}
+    </style>
+</head>
+<body>
+    <h2>胰岛素抵抗｜每日饮食运动记录</h2>
+    <div class="box">
+        <h4>🍽 添加饮食</h4>
+        <input type="text" id="foodName" placeholder="食物名称">
+        <input type="number" id="foodCal" placeholder="热量kcal">
+        <input type="number" id="foodCarb" placeholder="碳水(g)">
+        <button onclick="addFood()">添加</button>
+    </div>
+    <div class="box">
+        <h4>🏃 添加运动</h4>
+        <input type="text" id="sportName" placeholder="运动名称">
+        <input type="number" id="sportCal" placeholder="消耗热量kcal">
+        <button onclick="addSport()">添加</button>
+    </div>
+    <div class="box">
+        <h4>📊 今日统计</h4>
+        <p>摄入总热量：<span id="inCal">0</span> kcal</p>
+        <p>总碳水：<span id="totalCarb">0</span> g</p>
+        <p>运动消耗：<span id="outCal">0</span> kcal</p>
+        <p>净热量：<span id="netCal">0</span> kcal</p>
+    </div>
+    <div class="box">
+        <h4>今日清单</h4>
+        <div id="list"></div>
+    </div>
+<script>
+let data = JSON.parse(localStorage.getItem('irRecord')) || {foods:[],sports:[]};
+
+function render(){
+    let inCal = 0, outCal =0, totalCarb=0;
+    let html = "";
+    data.foods.forEach(item=>{
+        inCal += Number(item.cal);
+        totalCarb += Number(item.carb);
+        html += `<p>🍽 ${item.name} | ${item.cal}kcal | 碳水${item.carb}g</p>`
+    })
+    data.sports.forEach(item=>{
+        outCal += Number(item.cal);
+        html += `<p>🏃 ${item.name} | 消耗${item.cal}kcal</p>`
+    })
+    document.getElementById('list').innerHTML = html;
+    document.getElementById('inCal').innerText = inCal;
+    document.getElementById('outCal').innerText = outCal;
+    document.getElementById('totalCarb').innerText = totalCarb;
+    document.getElementById('netCal').innerText = inCal - outCal;
+    localStorage.setItem('irRecord',JSON.stringify(data));
+}
+
+function addFood(){
+    const name = document.getElementById('foodName').value;
+    const cal = document.getElementById('foodCal').value;
+    const carb = document.getElementById('foodCarb').value;
+    data.foods.push({name,cal,carb});
+    render();
+}
+function addSport(){
+    const name = document.getElementById('sportName').value;
+    const cal = document.getElementById('sportCal').value;
+    data.sports.push({name,cal});
+    render();
+}
+render();
+</script>
+</body>
+</html>
