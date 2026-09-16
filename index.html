@@ -2,75 +2,272 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>IR饮食运动热量记录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>胰岛素抵抗 | 每日饮食运动记录</title>
     <style>
-        body{max-width:600px;margin:20px auto;padding:0 15px;font-family:system-ui;}
-        .box{border:1px #ccc solid;padding:15px;border-radius:10px;margin:10px 0;}
-        button{padding:6px 12px;cursor:pointer;}
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 760px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom:16px;
+        }
+        .row{
+            margin:8px 0;
+        }
+        input, select {
+            padding:7px;
+            margin:4px;
+            font-size:15px;
+        }
+        button {
+            padding:7px 12px;
+            cursor:pointer;
+        }
+        .item-line{
+            margin:6px 0;
+        }
     </style>
 </head>
 <body>
-    <h2>胰岛素抵抗｜每日饮食运动记录</h2>
-    <div class="box">
-        <h4>🍽 添加饮食</h4>
-        <input type="text" id="foodName" placeholder="食物名称">
-        <input type="number" id="foodCal" placeholder="热量kcal">
-        <input type="number" id="foodCarb" placeholder="碳水(g)">
-        <button onclick="addFood()">添加</button>
+    <h1 align="center">胰岛素抵抗 | 每日饮食运动记录</h1>
+
+    <div class="card">
+        <h3>📅 选择记录日期</h3>
+        <input type="date" id="recordDate">
     </div>
-    <div class="box">
-        <h4>🏃 添加运动</h4>
-        <input type="text" id="sportName" placeholder="运动名称">
-        <input type="number" id="sportCal" placeholder="消耗热量kcal">
+
+    <div class="card">
+        <h3>🍽 添加饮食</h3>
+        <div class="row">
+            <select id="foodSelect">
+                <option value="">-- 选择食物 --</option>
+                <!-- 主食 -->
+                <option value="燕麦">燕麦</option>
+                <option value="糙米">糙米</option>
+                <option value="红薯">红薯</option>
+                <option value="白米饭">白米饭</option>
+                <option value="全麦面包">全麦面包</option>
+                <!-- 肉蛋蛋白 -->
+                <option value="鸡蛋">鸡蛋</option>
+                <option value="鸡胸肉">鸡胸肉</option>
+                <option value="三文鱼">三文鱼</option>
+                <option value="瘦牛肉">瘦牛肉</option>
+                <option value="虾仁">虾仁</option>
+                <option value="北豆腐">北豆腐</option>
+                <!-- 蔬菜 -->
+                <option value="西兰花">西兰花</option>
+                <option value="黄瓜">黄瓜</option>
+                <option value="番茄">番茄</option>
+                <option value="芦笋">芦笋</option>
+                <option value="生菜">生菜</option>
+                <!-- 油脂坚果 -->
+                <option value="橄榄油">橄榄油</option>
+                <option value="花生油">花生油</option>
+                <option value="黄油">黄油</option>
+                <option value="杏仁">杏仁</option>
+                <option value="核桃">核桃</option>
+                <!-- 饮品水果 -->
+                <option value="纯牛奶">纯牛奶</option>
+                <option value="无糖豆浆">无糖豆浆</option>
+                <option value="蓝莓">蓝莓</option>
+                <option value="苹果">苹果</option>
+            </select>
+            <input id="foodName" placeholder="输入食物+重量，例：橄榄油12g">
+        </div>
+        <div class="row">
+            <input id="foodCal" placeholder="热量kcal">
+            <input id="foodCarb" placeholder="碳水(g)">
+            <input id="foodProtein" placeholder="蛋白质(g)">
+            <input id="foodFat" placeholder="脂肪(g)">
+            <button onclick="addFood()">添加</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>🏃 添加运动</h3>
+        <input id="sportName" placeholder="运动名称">
+        <input id="sportCal" placeholder="消耗热量kcal">
         <button onclick="addSport()">添加</button>
     </div>
-    <div class="box">
-        <h4>📊 今日统计</h4>
-        <p>摄入总热量：<span id="inCal">0</span> kcal</p>
-        <p>总碳水：<span id="totalCarb">0</span> g</p>
-        <p>运动消耗：<span id="outCal">0</span> kcal</p>
-        <p>净热量：<span id="netCal">0</span> kcal</p>
+
+    <div class="card">
+        <h3>📊 今日统计</h3>
+        <div>摄入总热量: <span id="totalCal">0</span> kcal</div>
+        <div>总碳水: <span id="totalCarb">0</span> g</div>
+        <div>总蛋白质: <span id="totalProtein">0</span> g</div>
+        <div>总脂肪: <span id="totalFat">0</span> g</div>
+        <div>运动消耗: <span id="sportTotal">0</span> kcal</div>
+        <div>净热量: <span id="netCal">0</span> kcal</div>
     </div>
-    <div class="box">
-        <h4>今日清单</h4>
+
+    <div class="card">
+        <h3>今日清单</h3>
         <div id="list"></div>
     </div>
+
 <script>
-let data = JSON.parse(localStorage.getItem('irRecord')) || {foods:[],sports:[]};
+// 食物营养库【每100g参考值，可无限自行追加】
+const foodDB = {
+    //主食
+    "燕麦": {cal:389, carb:66.9, protein:13.1, fat:6.9},
+    "糙米": {cal:345, carb:77, protein:7.4, fat:2.8},
+    "红薯": {cal:86, carb:20.1, protein:1.6, fat:0.1},
+    "白米饭": {cal:116, carb:25.9, protein:2.6, fat:0.3},
+    "全麦面包": {cal:250, carb:42, protein:10, fat:4},
+    //肉蛋蛋白
+    "鸡蛋": {cal:143, carb:0.7, protein:12.6, fat:9.9},
+    "鸡胸肉": {cal:118, carb:0, protein:23, fat:2.3},
+    "三文鱼": {cal:139, carb:0, protein:20, fat:6.3},
+    "瘦牛肉": {cal:106, carb:0, protein:22, fat:1.8},
+    "虾仁": {cal:85, carb:0, protein:20, fat:0.8},
+    "北豆腐": {cal:70, carb:2, protein:8.1, fat:3.7},
+    //蔬菜
+    "西兰花": {cal:34, carb:4.1, protein:2.8, fat:0.4},
+    "黄瓜": {cal:16, carb:2.9, protein:0.7, fat:0.2},
+    "番茄": {cal:18, carb:3.9, protein:0.9, fat:0.2},
+    "芦笋": {cal:20, carb:3.9, protein:2.2, fat:0.2},
+    "生菜": {cal:15, carb:2.1, protein:1.4, fat:0.2},
+    //油脂坚果
+    "橄榄油": {cal:898, carb:0, protein:0, fat:99.8},
+    "花生油": {cal:899, carb:0, protein:0, fat:99.9},
+    "黄油": {cal:717, carb:0.1, protein:0.9, fat:81},
+    "杏仁": {cal:579, carb:21.7, protein:21.2, fat:50.6},
+    "核桃": {cal:654, carb:13.7, protein:15.2, fat:65.2},
+    //饮品水果
+    "纯牛奶": {cal:65, carb:4.8, protein:3.2, fat:3.8},
+    "无糖豆浆": {cal:40, carb:1.5, protein:3, fat:2.1},
+    "蓝莓": {cal:57, carb:14.5, protein:0.7, fat:0.3},
+    "苹果": {cal:52, carb:13.5, protein:0.3, fat:0.2}
+};
+
+let allData = JSON.parse(localStorage.getItem('dietAllData')) || {};
+let currentDate = '';
+
+// 初始化日期
+function initDate(){
+    const now = new Date();
+    const today = now.toISOString().split('T')[0];
+    const dateInput = document.getElementById('recordDate');
+    dateInput.value = today;
+    currentDate = today;
+    dateInput.onchange = ()=>{
+        currentDate = dateInput.value;
+        render();
+    }
+}
+
+// 解析食物名称+任意重量（支持小数）
+function parseFoodText(text){
+    const match = text.match(/^(.+?)(\d+(?:\.\d+)?)g$/);
+    if(!match){
+        return {name:text.trim(), weight:100};
+    }
+    const name = match[1].trim();
+    const weight = parseFloat(match[2]);
+    return {name, weight};
+}
+
+// 实时监听输入，重量变更自动重算四项营养
+const foodInput = document.getElementById('foodName');
+foodInput.addEventListener('input', function(){
+    const res = parseFoodText(this.value.trim());
+    const foodName = res.name;
+    const weight = res.weight;
+    if(foodDB[foodName]){
+        const ratio = weight / 100;
+        document.getElementById('foodCal').value = (foodDB[foodName].cal * ratio).toFixed(1);
+        document.getElementById('foodCarb').value = (foodDB[foodName].carb * ratio).toFixed(1);
+        document.getElementById('foodProtein').value = (foodDB[foodName].protein * ratio).toFixed(1);
+        document.getElementById('foodFat').value = (foodDB[foodName].fat * ratio).toFixed(1);
+    }
+})
+
+// 下拉选择食物，自动填充100g并触发计算
+document.getElementById('foodSelect').onchange = function(){
+    const selName = this.value;
+    if(!selName) return;
+    document.getElementById('foodName').value = selName + "100g";
+    foodInput.dispatchEvent(new Event('input'));
+}
+
+function getCurrentDayData(){
+    if(!allData[currentDate]){
+        allData[currentDate] = {foodList:[], sportSum:0};
+    }
+    return allData[currentDate];
+}
+
+function saveAll(){
+    localStorage.setItem('dietAllData', JSON.stringify(allData));
+}
 
 function render(){
-    let inCal = 0, outCal =0, totalCarb=0;
-    let html = "";
-    data.foods.forEach(item=>{
-        inCal += Number(item.cal);
-        totalCarb += Number(item.carb);
-        html += `<p>🍽 ${item.name} | ${item.cal}kcal | 碳水${item.carb}g</p>`
-    })
-    data.sports.forEach(item=>{
-        outCal += Number(item.cal);
-        html += `<p>🏃 ${item.name} | 消耗${item.cal}kcal</p>`
+    const dayData = getCurrentDayData();
+    let html = '';
+    let calSum = 0;
+    let carbSum =0;
+    let proteinSum=0;
+    let fatSum=0;
+    dayData.foodList.forEach((item,idx)=>{
+        calSum += Number(item.cal);
+        carbSum += Number(item.carb);
+        proteinSum += Number(item.protein);
+        fatSum += Number(item.fat);
+        html += `<div class="item-line">${item.name} | ${item.cal} kcal | 碳水${item.carb}g | 蛋白${item.protein}g | 脂肪${item.fat}g
+        <button onclick="delFood(${idx})">删除</button></div>`
     })
     document.getElementById('list').innerHTML = html;
-    document.getElementById('inCal').innerText = inCal;
-    document.getElementById('outCal').innerText = outCal;
-    document.getElementById('totalCarb').innerText = totalCarb;
-    document.getElementById('netCal').innerText = inCal - outCal;
-    localStorage.setItem('irRecord',JSON.stringify(data));
+    document.getElementById('totalCal').innerText = calSum.toFixed(1);
+    document.getElementById('totalCarb').innerText = carbSum.toFixed(1);
+    document.getElementById('totalProtein').innerText = proteinSum.toFixed(1);
+    document.getElementById('totalFat').innerText = fatSum.toFixed(1);
+    document.getElementById('sportTotal').innerText = dayData.sportSum.toFixed(1);
+    document.getElementById('netCal').innerText = (calSum - dayData.sportSum).toFixed(1);
+    saveAll();
 }
 
 function addFood(){
-    const name = document.getElementById('foodName').value;
-    const cal = document.getElementById('foodCal').value;
-    const carb = document.getElementById('foodCarb').value;
-    data.foods.push({name,cal,carb});
+    const name = document.getElementById('foodName').value.trim();
+    const cal = Number(document.getElementById('foodCal').value);
+    const carb = Number(document.getElementById('foodCarb').value);
+    const protein = Number(document.getElementById('foodProtein').value);
+    const fat = Number(document.getElementById('foodFat').value);
+    if(!name || isNaN(cal))return;
+    const dayData = getCurrentDayData();
+    dayData.foodList.push({name,cal,carb,protein,fat});
+    document.getElementById('foodName').value='';
+    document.getElementById('foodCal').value='';
+    document.getElementById('foodCarb').value='';
+    document.getElementById('foodProtein').value='';
+    document.getElementById('foodFat').value='';
+    document.getElementById('foodSelect').value='';
     render();
 }
+
 function addSport(){
-    const name = document.getElementById('sportName').value;
-    const cal = document.getElementById('sportCal').value;
-    data.sports.push({name,cal});
+    const name = document.getElementById('sportName').value.trim();
+    const cal = Number(document.getElementById('sportCal').value);
+    if(!name || isNaN(cal))return;
+    const dayData = getCurrentDayData();
+    dayData.sportSum += cal;
+    document.getElementById('sportName').value='';
+    document.getElementById('sportCal').value='';
     render();
 }
+
+function delFood(idx){
+    const dayData = getCurrentDayData();
+    dayData.foodList.splice(idx,1);
+    render();
+}
+
+initDate();
 render();
 </script>
 </body>
