@@ -155,6 +155,22 @@
                 <option value="秋葵">秋葵</option>
                 <option value="荷兰豆">荷兰豆</option>
                 <option value="红辣椒">红辣椒</option>
+                <option value="胡萝卜">胡萝卜</option>
+                <option value="丝瓜">丝瓜</option>
+                <option value="空心菜">空心菜</option>
+                <option value="白萝卜">白萝卜</option>
+                <option value="苦瓜">苦瓜</option>
+                <option value="茄子">茄子</option>
+                <option value="韭菜">韭菜</option>
+                <option value="豆角(四季豆)">豆角(四季豆)</option>
+                <option value="西葫芦">西葫芦</option>
+                <option value="大白菜">大白菜</option>
+                <option value="菜花">菜花</option>
+                <option value="青椒">青椒</option>
+                <option value="豆芽">豆芽</option>
+                <option value="紫甘蓝">紫甘蓝</option>
+                <option value="莲藕">莲藕</option>
+                <option value="茼蒿">茼蒿</option>
                 <option value="橄榄油">橄榄油</option>
                 <option value="花生油">花生油</option>
                 <option value="菜籽油">菜籽油</option>
@@ -174,6 +190,18 @@
                 <option value="">-- 选择家常炒菜 --</option>
                 <option value="荷兰豆炒香肠">荷兰豆炒香肠</option>
                 <option value="红辣椒炒肉">红辣椒炒肉</option>
+                <option value="胡萝卜炒肉">胡萝卜炒肉</option>
+                <option value="丝瓜炒蛋">丝瓜炒蛋</option>
+                <option value="蒜蓉空心菜">蒜蓉空心菜</option>
+                <option value="清炒丝瓜">清炒丝瓜</option>
+                <option value="胡萝卜炒鸡蛋">胡萝卜炒鸡蛋</option>
+                <option value="地三鲜">地三鲜</option>
+                <option value="红烧茄子">红烧茄子</option>
+                <option value="干煸豆角">干煸豆角</option>
+                <option value="韭菜炒蛋">韭菜炒蛋</option>
+                <option value="青椒肉丝">青椒肉丝</option>
+                <option value="蒜蓉菜心">蒜蓉菜心</option>
+                <option value="清炒豆芽">清炒豆芽</option>
                 <option value="青椒炒鸡蛋">青椒炒鸡蛋</option>
                 <option value="香菇炒青菜">香菇炒青菜</option>
                 <option value="番茄炒蛋">番茄炒蛋</option>
@@ -242,7 +270,8 @@
         </div>
         <div class="row">
             <label>食物：</label><input id="foodName" placeholder="输入或选择食物名称" style="width:180px">
-            <label>克数：</label><input id="foodWeight" placeholder="100" type="number" style="width:80px"> g
+            <label>克数：</label><input id="foodWeight" placeholder="填实际克数，如35" type="number" min="1" step="0.1" style="width:90px"> g
+            <span style="color:#999;font-size:13px">（1g起，自动按比例换算）</span>
         </div>
         <div class="row">
             <input id="foodCal" placeholder="热量kcal">
@@ -278,7 +307,7 @@
             <input id="cfFat" placeholder="脂肪 g/100g" type="number">
         </div>
         <div class="row">
-            <label>本次吃了：</label><input id="cfEatWeight" placeholder="克数" type="number" style="width:80px"> g
+            <label>本次吃了：</label><input id="cfEatWeight" placeholder="克数" type="number" min="1" step="0.1" style="width:80px"> g
             <button onclick="saveCustomFood()">💾 仅保存到食物库</button>
             <button onclick="saveCustomFoodAndLog()">➕ 保存并计入今天</button>
         </div>
@@ -422,6 +451,22 @@ const builtinFoodDB = {
     "秋葵": {cal:37, carb:7.6, protein:2.0, fat:0.2},
     "荷兰豆": {cal:27, carb:4.9, protein:2.5, fat:0.3},
     "红辣椒": {cal:30, carb:6, protein:1.4, fat:0.2},
+    "胡萝卜": {cal:39, carb:9.6, protein:1.0, fat:0.2},
+    "丝瓜": {cal:20, carb:4.2, protein:1.0, fat:0.2},
+    "空心菜": {cal:20, carb:3.4, protein:2.2, fat:0.3},
+    "白萝卜": {cal:16, carb:4.0, protein:0.7, fat:0.1},
+    "苦瓜": {cal:19, carb:4.3, protein:1.0, fat:0.1},
+    "茄子": {cal:23, carb:4.9, protein:1.1, fat:0.2},
+    "韭菜": {cal:25, carb:4.5, protein:2.4, fat:0.4},
+    "豆角(四季豆)": {cal:30, carb:6.7, protein:2.0, fat:0.4},
+    "西葫芦": {cal:19, carb:3.8, protein:0.8, fat:0.2},
+    "大白菜": {cal:17, carb:3.4, protein:1.5, fat:0.1},
+    "菜花": {cal:24, carb:4.6, protein:2.1, fat:0.2},
+    "青椒": {cal:22, carb:5.4, protein:1.0, fat:0.2},
+    "豆芽": {cal:15, carb:2.9, protein:1.8, fat:0.1},
+    "紫甘蓝": {cal:25, carb:5.3, protein:1.4, fat:0.2},
+    "莲藕": {cal:47, carb:11.5, protein:1.9, fat:0.2},
+    "茼蒿": {cal:24, carb:3.9, protein:1.9, fat:0.3},
     //油脂调味
     "橄榄油": {cal:898, carb:0, protein:0, fat:99.8},
     "花生油": {cal:899, carb:0, protein:0, fat:99.9},
@@ -441,6 +486,18 @@ const builtinFoodDB = {
     //家常炒菜（每100g成品含油估算）
     "荷兰豆炒香肠": {cal:168, carb:7.2, protein:9.1, fat:11.8},
     "红辣椒炒肉": {cal:152, carb:3.6, protein:10.8, fat:10.5},
+    "胡萝卜炒肉": {cal:110, carb:6.5, protein:9.2, fat:5.5},
+    "丝瓜炒蛋": {cal:85, carb:3.5, protein:5.8, fat:5.0},
+    "蒜蓉空心菜": {cal:55, carb:3.0, protein:2.2, fat:3.6},
+    "清炒丝瓜": {cal:55, carb:3.8, protein:0.9, fat:3.8},
+    "胡萝卜炒鸡蛋": {cal:95, carb:5.5, protein:5.0, fat:5.8},
+    "地三鲜": {cal:120, carb:10, protein:2.5, fat:7.5},
+    "红烧茄子": {cal:105, carb:7, protein:1.8, fat:7.8},
+    "干煸豆角": {cal:130, carb:8, protein:3.5, fat:9},
+    "韭菜炒蛋": {cal:115, carb:3.8, protein:6.5, fat:8.2},
+    "青椒肉丝": {cal:125, carb:4.5, protein:10.5, fat:7.2},
+    "蒜蓉菜心": {cal:50, carb:3.2, protein:2.0, fat:3.2},
+    "清炒豆芽": {cal:50, carb:2.8, protein:1.8, fat:3.5},
     "青椒炒鸡蛋": {cal:135, carb:3.2, protein:8.5, fat:9.6},
     "香菇炒青菜": {cal:72, carb:5.1, protein:2.8, fat:4.5},
     "番茄炒蛋": {cal:120, carb:4.2, protein:6.5, fat:8.2},
@@ -549,7 +606,7 @@ function switchCat(cat, btn){
     btn.classList.add('active');
 }
 
-// 名称与克数分开：自动计算营养
+// 名称与克数分开：自动计算营养（任意克数，1g起，按比例换算）
 function refreshCalc(){
     let name = document.getElementById('foodName').value.trim();
     let weight = parseFloat(document.getElementById('foodWeight').value);
@@ -575,7 +632,7 @@ const foodInput = document.getElementById('foodName');
 foodInput.addEventListener('input', refreshCalc);
 document.getElementById('foodWeight').addEventListener('input', refreshCalc);
 
-// 分类下拉选择：自动填名称+默认100g
+// 分类下拉选择：自动填名称+默认100g（可改成任意克数）
 ['staple','food','dish','snack','drink'].forEach(cat=>{
     const id = 'foodSelect' + cat.charAt(0).toUpperCase() + cat.slice(1);
     document.getElementById(id).onchange = function(){
@@ -801,7 +858,7 @@ function addFood(){
     const protein = Number(document.getElementById('foodProtein').value);
     const fat = Number(document.getElementById('foodFat').value);
     if(!name || isNaN(cal) || isNaN(weight) || weight<=0){
-        alert('请先选择食物，并确认填好了克数（默认100g）');
+        alert('请先选择食物，并填写克数（1g起，如 35）');
         return;
     }
     const dayData = getCurrentDayData();
@@ -838,7 +895,6 @@ function delFood(idx){
 }
 
 // ===== 自定义食物 =====
-// kJ/kcal实时换算提示
 function updateKcalHint(){
     const v = parseFloat(document.getElementById('cfEnergy').value);
     const unit = document.getElementById('cfEnergyUnit').value;
@@ -853,7 +909,6 @@ function updateKcalHint(){
 document.getElementById('cfEnergy').addEventListener('input', updateKcalHint);
 document.getElementById('cfEnergyUnit').addEventListener('change', updateKcalHint);
 
-// 读取当前能量并换算成kcal
 function getCustomKcal(){
     const v = parseFloat(document.getElementById('cfEnergy').value);
     const unit = document.getElementById('cfEnergyUnit').value;
@@ -888,7 +943,6 @@ function saveCustomFood(){
     alert('✅ 已保存「' + name + '」到你的食物库！\n在饮食栏输入名称+克数即可自动计算');
 }
 
-// 保存并计入今天
 function saveCustomFoodAndLog(){
     const name = document.getElementById('cfName').value.trim();
     const kcal = getCustomKcal();
@@ -901,12 +955,11 @@ function saveCustomFoodAndLog(){
     const fat = parseFloat(document.getElementById('cfFat').value)||0;
     const weight = parseFloat(document.getElementById('cfEatWeight').value);
     if(isNaN(weight) || weight<=0){
-        alert('请填写本次吃的克数（例如 30）');
+        alert('请填写本次吃的克数（1g起，例如 30）');
         return;
     }
     customFoods[name] = {cal: kcal, carb, protein, fat};
     localStorage.setItem('customFoods', JSON.stringify(customFoods));
-    // 按克数折算后计入今天
     const ratio = weight / 100;
     const dayData = getCurrentDayData();
     dayData.foodList.push({
@@ -959,10 +1012,8 @@ function handleFileUpload(){
 function parseNutritionText(text){
     let energyVal = null, energyUnit = 'kJ';
     let carb = null, protein = null, fat = null;
-    // 中国标签：能量 kJ
     let m = text.match(/能量[\s:：]*([\d.]+)\s*(kJ|千焦)/i) || text.match(/Energy[\s:：]*([\d.]+)\s*kJ/i);
     if(m){ energyVal = parseFloat(m[1]); energyUnit = 'kJ'; }
-    // 热量直接以kcal标注
     m = text.match(/热量[\s:：]*([\d.]+)\s*(kcal|千卡|Cal)/i) || text.match(/Calories?[\s:：]*([\d.]+)/i);
     if(m && energyVal===null){ energyVal = parseFloat(m[1]); energyUnit = 'kcal'; }
     m = text.match(/蛋白质[\s:：]*([\d.]+)\s*g/i) || text.match(/Protein[\s:：]*([\d.]+)/i);
