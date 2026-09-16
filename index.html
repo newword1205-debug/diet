@@ -75,6 +75,10 @@
             font-size:14px;
             white-space:pre-line;
         }
+        .kcal-hint{
+            color:#4CAF50;
+            font-weight:bold;
+        }
     </style>
 </head>
 <body>
@@ -261,11 +265,22 @@
         </div>
         <div class="row">
             <input id="cfName" placeholder="名称，例：某品牌饼干">
-            <input id="cfCal" placeholder="热量 kcal/100g" type="number">
+            <input id="cfEnergy" placeholder="能量数值" type="number">
+            <select id="cfEnergyUnit">
+                <option value="kJ">kJ 千焦</option>
+                <option value="kcal">kcal 千卡</option>
+            </select>
+            <span class="kcal-hint" id="cfKcalHint"></span>
+        </div>
+        <div class="row">
             <input id="cfCarb" placeholder="碳水 g/100g" type="number">
             <input id="cfProtein" placeholder="蛋白 g/100g" type="number">
             <input id="cfFat" placeholder="脂肪 g/100g" type="number">
-            <button onclick="saveCustomFood()">💾 保存到食物库</button>
+        </div>
+        <div class="row">
+            <label>本次吃了：</label><input id="cfEatWeight" placeholder="克数" type="number" style="width:80px"> g
+            <button onclick="saveCustomFood()">💾 仅保存到食物库</button>
+            <button onclick="saveCustomFoodAndLog()">➕ 保存并计入今天</button>
         </div>
         <div>已保存的自定义食物：<span id="customList"></span></div>
     </div>
@@ -538,7 +553,6 @@ function switchCat(cat, btn){
 function refreshCalc(){
     let name = document.getElementById('foodName').value.trim();
     let weight = parseFloat(document.getElementById('foodWeight').value);
-    // 兼容：名称里带克数，如"米饭150g"
     const m = name.match(/^(.+?)(\d+(?:\.\d+)?)(g|ml)$/i);
     if(m){
         name = m[1].trim();
@@ -824,26 +838,91 @@ function delFood(idx){
 }
 
 // ===== 自定义食物 =====
-function saveCustomFood(){
-    const name = document.getElementById('cfName').value.trim();
-    const cal = parseFloat(document.getElementById('cfCal').value);
-    const carb = parseFloat(document.getElementById('cfCarb').value)||0;
-    const protein = parseFloat(document.getElementById('cfProtein').value)||0;
-    const fat = parseFloat(document.getElementById('cfFat').value)||0;
-    if(!name || isNaN(cal) || cal<=0){
-        alert('请填写食物名称和每100g热量');
-        return;
+// kJ/kcal实时换算提示
+function updateKcalHint(){
+    const v = parseFloat(document.getElementById('cfEnergy').value);
+    const unit = document.getElementById('cfEnergyUnit').value;
+    const hint = document.getElementById('cfKcalHint');
+    if(isNaN(v) || v<=0){ hint.innerText=''; return; }
+    if(unit==='kJ'){
+        hint.innerText = '= ' + (v/4.184).toFixed(1) + ' kcal/100g';
+    }else{
+        hint.innerText = '= ' + v.toFixed(1) + ' kcal/100g';
     }
-    customFoods[name] = {cal, carb, protein, fat};
-    localStorage.setItem('customFoods', JSON.stringify(customFoods));
-    renderCustomList();
+}
+document.getElementById('cfEnergy').addEventListener('input', updateKcalHint);
+document.getElementById('cfEnergyUnit').addEventListener('change', updateKcalHint);
+
+// 读取当前能量并换算成kcal
+function getCustomKcal(){
+    const v = parseFloat(document.getElementById('cfEnergy').value);
+    const unit = document.getElementById('cfEnergyUnit').value;
+    if(isNaN(v) || v<=0) return null;
+    return unit==='kJ' ? v/4.184 : v;
+}
+
+function clearCustomForm(){
     document.getElementById('cfName').value='';
-    document.getElementById('cfCal').value='';
+    document.getElementById('cfEnergy').value='';
     document.getElementById('cfCarb').value='';
     document.getElementById('cfProtein').value='';
     document.getElementById('cfFat').value='';
-    alert('✅ 已保存「' + name + '」到你的食物库！\n现在在饮食栏输入「' + name + '」+ 克数，就能自动算热量');
+    document.getElementById('cfEatWeight').value='';
+    updateKcalHint();
 }
+
+function saveCustomFood(){
+    const name = document.getElementById('cfName').value.trim();
+    const kcal = getCustomKcal();
+    if(!name || kcal===null){
+        alert('请填写名称和能量数值（kJ或kcal均可）');
+        return;
+    }
+    const carb = parseFloat(document.getElementById('cfCarb').value)||0;
+    const protein = parseFloat(document.getElementById('cfProtein').value)||0;
+    const fat = parseFloat(document.getElementById('cfFat').value)||0;
+    customFoods[name] = {cal: kcal, carb, protein, fat};
+    localStorage.setItem('customFoods', JSON.stringify(customFoods));
+    renderCustomList();
+    clearCustomForm();
+    alert('✅ 已保存「' + name + '」到你的食物库！\n在饮食栏输入名称+克数即可自动计算');
+}
+
+// 保存并计入今天
+function saveCustomFoodAndLog(){
+    const name = document.getElementById('cfName').value.trim();
+    const kcal = getCustomKcal();
+    if(!name || kcal===null){
+        alert('请填写名称和能量数值（kJ或kcal均可）');
+        return;
+    }
+    const carb = parseFloat(document.getElementById('cfCarb').value)||0;
+    const protein = parseFloat(document.getElementById('cfProtein').value)||0;
+    const fat = parseFloat(document.getElementById('cfFat').value)||0;
+    const weight = parseFloat(document.getElementById('cfEatWeight').value);
+    if(isNaN(weight) || weight<=0){
+        alert('请填写本次吃的克数（例如 30）');
+        return;
+    }
+    customFoods[name] = {cal: kcal, carb, protein, fat};
+    localStorage.setItem('customFoods', JSON.stringify(customFoods));
+    // 按克数折算后计入今天
+    const ratio = weight / 100;
+    const dayData = getCurrentDayData();
+    dayData.foodList.push({
+        name: name,
+        weight: weight,
+        cal: (kcal*ratio).toFixed(1),
+        carb: (carb*ratio).toFixed(1),
+        protein: (protein*ratio).toFixed(1),
+        fat: (fat*ratio).toFixed(1)
+    });
+    renderCustomList();
+    clearCustomForm();
+    render();
+    alert('✅ 已保存「' + name + '」并计入今天 ' + weight + 'g！\n今日统计已更新');
+}
+
 function delCustomFood(name){
     delete customFoods[name];
     localStorage.setItem('customFoods', JSON.stringify(customFoods));
@@ -878,13 +957,14 @@ function handleFileUpload(){
     });
 }
 function parseNutritionText(text){
-    let kcal = null, carb = null, protein = null, fat = null;
-    // 中国标签：能量 kJ → kcal（1kcal = 4.184kJ）
+    let energyVal = null, energyUnit = 'kJ';
+    let carb = null, protein = null, fat = null;
+    // 中国标签：能量 kJ
     let m = text.match(/能量[\s:：]*([\d.]+)\s*(kJ|千焦)/i) || text.match(/Energy[\s:：]*([\d.]+)\s*kJ/i);
-    if(m){ kcal = parseFloat(m[1]) / 4.184; }
+    if(m){ energyVal = parseFloat(m[1]); energyUnit = 'kJ'; }
     // 热量直接以kcal标注
     m = text.match(/热量[\s:：]*([\d.]+)\s*(kcal|千卡|Cal)/i) || text.match(/Calories?[\s:：]*([\d.]+)/i);
-    if(m && kcal===null){ kcal = parseFloat(m[1]); }
+    if(m && energyVal===null){ energyVal = parseFloat(m[1]); energyUnit = 'kcal'; }
     m = text.match(/蛋白质[\s:：]*([\d.]+)\s*g/i) || text.match(/Protein[\s:：]*([\d.]+)/i);
     if(m) protein = parseFloat(m[1]);
     m = text.match(/脂肪[\s:：]*([\d.]+)\s*g/i) || text.match(/Fat[\s:：]*([\d.]+)/i);
@@ -892,13 +972,19 @@ function parseNutritionText(text){
     m = text.match(/碳水化合物[\s:：]*([\d.]+)\s*g/i) || text.match(/Carbohydrate[\s:：]*([\d.]+)/i);
     if(m) carb = parseFloat(m[1]);
 
-    if(kcal!==null) document.getElementById('cfCal').value = kcal.toFixed(1);
+    if(energyVal!==null){
+        document.getElementById('cfEnergy').value = energyVal;
+        document.getElementById('cfEnergyUnit').value = energyUnit;
+    }
     if(carb!==null) document.getElementById('cfCarb').value = carb;
     if(protein!==null) document.getElementById('cfProtein').value = protein;
     if(fat!==null) document.getElementById('cfFat').value = fat;
+    updateKcalHint();
 
     let msg = '✅ 识别完成！已自动填入下方表单，请核对修改：\n';
-    msg += (kcal!==null ? ('热量：'+kcal.toFixed(1)+' kcal/100g\n') : '热量：未识别到（可手动填）\n');
+    msg += (energyVal!==null
+        ? ('能量：'+energyVal+' '+energyUnit+' → '+getCustomKcal().toFixed(1)+' kcal/100g\n')
+        : '能量：未识别到（可手动填）\n');
     msg += (protein!==null ? ('蛋白质：'+protein+' g\n') : '蛋白质：未识别到\n');
     msg += (fat!==null ? ('脂肪：'+fat+' g\n') : '脂肪：未识别到\n');
     msg += (carb!==null ? ('碳水化合物：'+carb+' g\n') : '碳水化合物：未识别到\n');
