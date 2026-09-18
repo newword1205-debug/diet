@@ -123,6 +123,7 @@ details summary{cursor:pointer;font-weight:600}
 <div class="cats" id="catBtns">
   <button class="pill active" data-cat="主食">主食</button>
   <button class="pill" data-cat="食材">食材</button>
+  <button class="pill" data-cat="水果">水果</button>
   <button class="pill" data-cat="家常菜">家常菜</button>
   <button class="pill" data-cat="零食">零食</button>
   <button class="pill" data-cat="饮品">饮品</button>
@@ -331,7 +332,7 @@ const F = {
   "生菜":{cat:"食材",unit:"g",cal:15,carb:2.9,pro:1.4,fat:.2,sv:100},
   "荷兰豆":{cat:"食材",unit:"g",cal:42,carb:7.5,pro:2.5,fat:.2,sv:100},
   "甜红椒":{cat:"食材",unit:"g",cal:31,carb:6.0,pro:1.0,fat:.3,sv:100},
-  "番茄":{cat:"食材",unit:"g",cal:18,carb:3.9,pro:.9,fat:.2,sv:150},
+  "番茄":{cat:"食材",cats:["水果"],unit:"g",cal:18,carb:3.9,pro:.9,fat:.2,sv:150,ref:"1个约150g"},
   "黄瓜":{cat:"食材",unit:"g",cal:15,carb:3.6,pro:.7,fat:.1,sv:100},
   "胡萝卜":{cat:"食材",unit:"g",cal:41,carb:9.6,pro:.9,fat:.2,sv:100},
   "丝瓜":{cat:"食材",unit:"g",cal:20,carb:4.2,pro:1.0,fat:.2,sv:200},
@@ -498,24 +499,49 @@ const F = {
   "高蛋白酸奶":{cat:"零食",unit:"g",cal:80,carb:5,pro:10,fat:2,sv:100},
   "无糖酸奶":{cat:"零食",unit:"g",cal:60,carb:4.5,pro:4.5,fat:2.5,sv:100},
   "AD钙奶":{cat:"零食",unit:"ml",cal:65,carb:9.2,pro:1,fat:1.5,sv:220},
-  "香蕉":{cat:"零食",unit:"g",cal:93,carb:22.8,pro:1.1,fat:.3,sv:120},
-  "苹果":{cat:"零食",unit:"g",cal:53,carb:13.7,pro:.3,fat:.2,sv:200},
-  "梨":{cat:"零食",unit:"g",cal:51,carb:13.1,pro:.4,fat:.2,sv:250},
-  "桃":{cat:"零食",unit:"g",cal:42,carb:10.1,pro:.8,fat:.1,sv:200},
-  "李子":{cat:"零食",unit:"g",cal:38,carb:8.8,pro:.7,fat:.2,sv:100},
-  "葡萄":{cat:"零食",unit:"g",cal:45,carb:10.3,pro:.4,fat:.2,sv:150},
-  "橙子":{cat:"零食",unit:"g",cal:48,carb:11.8,pro:.9,fat:.2,sv:200},
-  "西柚":{cat:"零食",unit:"g",cal:33,carb:7.8,pro:.8,fat:.2,sv:250},
-  "柚子":{cat:"零食",unit:"g",cal:38,carb:9.5,pro:.8,fat:.1,sv:200},
-  "蓝莓":{cat:"零食",unit:"g",cal:57,carb:14.5,pro:.7,fat:.3,sv:125},
-  "草莓":{cat:"零食",unit:"g",cal:32,carb:7.1,pro:1,fat:.2,sv:150},
-  "猕猴桃":{cat:"零食",unit:"g",cal:61,carb:14.7,pro:1.1,fat:.6,sv:100},
-  "西瓜":{cat:"零食",unit:"g",cal:31,carb:7.6,pro:.6,fat:.2,sv:300},
-  "哈密瓜":{cat:"零食",unit:"g",cal:34,carb:8,pro:.5,fat:.1,sv:200},
-  "火龙果":{cat:"零食",unit:"g",cal:55,carb:13.3,pro:1.1,fat:.2,sv:250},
-  "芒果":{cat:"零食",unit:"g",cal:60,carb:14.6,pro:.7,fat:.4,sv:150},
-  "菠萝":{cat:"零食",unit:"g",cal:50,carb:12.7,pro:.5,fat:.1,sv:150},
-  "牛油果":{cat:"零食",unit:"g",cal:161,carb:8.5,pro:2,fat:15,sv:100},
+  "香蕉":{cat:"水果",unit:"g",cal:93,carb:22.8,pro:1.1,fat:.3,sv:120,ref:"1根约120g"},
+  "苹果":{cat:"水果",unit:"g",cal:53,carb:13.7,pro:.3,fat:.2,sv:200,ref:"1个约200g"},
+  "梨子":{cat:"水果",unit:"g",cal:51,carb:13.1,pro:.4,fat:.2,sv:250,ref:"1个约250g"},
+  "桃":{cat:"水果",unit:"g",cal:42,carb:10.1,pro:.8,fat:.1,sv:200,ref:"1个约200g"},
+  "李子":{cat:"水果",unit:"g",cal:38,carb:8.8,pro:.7,fat:.2,sv:100,ref:"1个约100g"},
+  "葡萄":{cat:"水果",unit:"g",cal:45,carb:10.3,pro:.4,fat:.2,sv:150,ref:"1串约250g"},
+  "橙子":{cat:"水果",unit:"g",cal:48,carb:11.8,pro:.9,fat:.2,sv:200,ref:"1个约200g"},
+  "西柚":{cat:"水果",unit:"g",cal:33,carb:7.8,pro:.8,fat:.2,sv:250,ref:"1个约250g"},
+  "柚子":{cat:"水果",unit:"g",cal:38,carb:9.5,pro:.8,fat:.1,sv:200,ref:"1瓣约150g"},
+  "蓝莓":{cat:"水果",unit:"g",cal:57,carb:14.5,pro:.7,fat:.3,sv:125,ref:"1盒约125g"},
+  "草莓":{cat:"水果",unit:"g",cal:32,carb:7.1,pro:1,fat:.2,sv:150,ref:"1颗约15g"},
+  "猕猴桃":{cat:"水果",unit:"g",cal:61,carb:14.7,pro:1.1,fat:.6,sv:100,ref:"1个约100g"},
+  "西瓜":{cat:"水果",unit:"g",cal:31,carb:7.6,pro:.6,fat:.2,sv:300,ref:"1块约300g"},
+  "哈密瓜":{cat:"水果",unit:"g",cal:34,carb:8,pro:.5,fat:.1,sv:200,ref:"1块约200g"},
+  "火龙果":{cat:"水果",unit:"g",cal:55,carb:13.3,pro:1.1,fat:.2,sv:250,ref:"1个约250g"},
+  "芒果":{cat:"水果",unit:"g",cal:60,carb:14.6,pro:.7,fat:.4,sv:250,ref:"1个约250g"},
+  "菠萝":{cat:"水果",unit:"g",cal:50,carb:12.7,pro:.5,fat:.1,sv:150,ref:"1块约150g"},
+  "牛油果":{cat:"水果",unit:"g",cal:161,carb:8.5,pro:2,fat:15,sv:150,ref:"1个约150g"},
+  "榴莲":{cat:"水果",unit:"g",cal:150,carb:28,pro:2.6,fat:3.3,sv:150,ref:"1瓣约150g"},
+  "山竹":{cat:"水果",unit:"g",cal:73,carb:18,pro:.6,fat:.2,sv:50,ref:"1个约50g"},
+  "荔枝":{cat:"水果",unit:"g",cal:71,carb:16.6,pro:.9,fat:.2,sv:100,ref:"5颗约100g"},
+  "龙眼":{cat:"水果",unit:"g",cal:71,carb:16.6,pro:1.2,fat:.1,sv:100,ref:"12颗约100g"},
+  "车厘子":{cat:"水果",unit:"g",cal:63,carb:16,pro:1.1,fat:.2,sv:100,ref:"10颗约100g"},
+  "柿子":{cat:"水果",unit:"g",cal:71,carb:18.5,pro:.4,fat:.2,sv:150,ref:"1个约150g"},
+  "石榴":{cat:"水果",unit:"g",cal:73,carb:18.7,pro:1.7,fat:1.2,sv:250,ref:"1个约250g"},
+  "木瓜":{cat:"水果",unit:"g",cal:43,carb:10.8,pro:.6,fat:.3,sv:150,ref:"1块约150g"},
+  "椰子（椰汁）":{cat:"水果",unit:"ml",cal:19,carb:3.4,pro:.7,fat:.2,sv:300,ref:"1杯约300ml"},
+  "柠檬":{cat:"水果",unit:"g",cal:37,carb:9.3,pro:1.1,fat:1.2,sv:80,ref:"1个约80g"},
+  "金桔":{cat:"水果",unit:"g",cal:55,carb:12.3,pro:.9,fat:.3,sv:50,ref:"5颗约50g"},
+  "百香果":{cat:"水果",unit:"g",cal:97,carb:23.4,pro:2.2,fat:.7,sv:50,ref:"1个约50g"},
+  "杨桃":{cat:"水果",unit:"g",cal:31,carb:7.4,pro:.6,fat:.3,sv:150,ref:"1个约150g"},
+  "番石榴（芭乐）":{cat:"水果",unit:"g",cal:68,carb:14,pro:2.6,fat:1,sv:200,ref:"1个约200g"},
+  "冬枣":{cat:"水果",unit:"g",cal:115,carb:27.8,pro:1.1,fat:.2,sv:50,ref:"8颗约50g"},
+  "杨梅":{cat:"水果",unit:"g",cal:30,carb:6.7,pro:.8,fat:.2,sv:100,ref:"10颗约100g"},
+  "桑葚":{cat:"水果",unit:"g",cal:57,carb:13.8,pro:1.7,fat:.4,sv:50,ref:"1小把约50g"},
+  "杏":{cat:"水果",unit:"g",cal:39,carb:9.1,pro:.9,fat:.1,sv:50,ref:"1个约50g"},
+  "无花果":{cat:"水果",unit:"g",cal:65,carb:16,pro:1.4,fat:.3,sv:60,ref:"1个约60g"},
+  "莲雾":{cat:"水果",unit:"g",cal:39,carb:10,pro:.7,fat:.2,sv:100,ref:"1个约100g"},
+  "荸荠（马蹄）":{cat:"水果",unit:"g",cal:59,carb:14.2,pro:1.1,fat:.2,sv:100,ref:"5个约100g"},
+  "水果黄瓜":{cat:"水果",unit:"g",cal:14,carb:2.9,pro:.8,fat:.1,sv:100,ref:"1根约100g"},
+  "耙耙柑":{cat:"水果",unit:"g",cal:44,carb:10.5,pro:.7,fat:.2,sv:200,ref:"1个约200g"},
+  "橘子":{cat:"水果",unit:"g",cal:44,carb:10.5,pro:.8,fat:.2,sv:150,ref:"1个约150g"},
+  "小番茄（圣女果）":{cat:"水果",unit:"g",cal:25,carb:5.8,pro:1,fat:.2,sv:100,ref:"10颗约100g"},
   "炸薯条":{cat:"零食",unit:"g",cal:310,carb:40,pro:4,fat:15,sv:100},
   "洋葱圈（炸）":{cat:"零食",unit:"g",cal:250,carb:30,pro:4,fat:12,sv:100},
   "炸春卷":{cat:"零食",unit:"g",cal:250,carb:28,pro:6,fat:13,sv:100},
@@ -590,10 +616,10 @@ function renderFoods(){
   const q=(document.getElementById("foodSearch")?.value||"").trim();
   let list=Object.entries(allFoods());
   if(q){list=list.filter(([n,x])=>n.includes(q));}
-  else{list=list.filter(([n,x])=>x.cat===cat);}
+  else{list=list.filter(([n,x])=>x.cat===cat||(x.cats&&x.cats.includes(cat)));}
   list.forEach(([n,x])=>{
     const b=document.createElement("button"); b.className="food-btn";
-    b.innerHTML=`<b>${n}</b><span>${x.cal} kcal/100${x.unit||"g"}${x.sv?` · 常见${x.sv}${x.unit||"g"}`:""}</span>`;
+    b.innerHTML=`<b>${n}</b><span>${x.ref?`${x.ref} · `:""}${x.cal} kcal/100${x.unit||"g"}</span>`;
     b.onclick=()=>{document.getElementById("foodName").value=n;document.getElementById("foodWeight").value=x.sv||100;updateHint()};
     grid.appendChild(b);
   });
@@ -719,7 +745,7 @@ function renderSuggest(q){
   if(!list.length){box.innerHTML='<div class="suggest-empty">没有匹配的食物</div>';return;}
   list.forEach(([n,x])=>{
     const d=document.createElement("div"); d.className="suggest-item";
-    d.innerHTML=`<b>${n}</b><span>${x.cal} kcal/100${x.unit||"g"}${x.sv?` · 常见${x.sv}${x.unit||"g"}`:""}</span>`;
+    d.innerHTML=`<b>${n}</b><span>${x.ref?`${x.ref} · `:""}${x.cal} kcal/100${x.unit||"g"}</span>`;
     d.onclick=()=>{
       document.getElementById("foodName").value=n;
       document.getElementById("foodWeight").value=x.sv||100;
